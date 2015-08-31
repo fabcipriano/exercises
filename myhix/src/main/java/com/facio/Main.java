@@ -22,26 +22,17 @@ public class Main {
     public static void main(String[] args) {
         LOG.info("start main and loading application context...");
         int i = 0;
+        String[] names = {"Vai Planeta", "Fabiano", "Lucas"};
         
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig.class);
         
         HeavyService bean = ctx.getBean(HeavyService.class);
         
-        LOG.info(" ===== Initialize RequestContext =====");
-        HystrixRequestContext initializeContext = HystrixRequestContext.initializeContext();
-        try {
-        
-            for (i = 0; i < 10; i++) {
-                LOG.info("calling hello... for the [" + i + "] time");
-                String hello = bean.hello("Vai Planeta");
-                LOG.debug("Say.:" + hello);
-                LOG.info("hello called.");
-            }
-        } finally {
-            LOG.info(" ===== Close RequestContext =====");
-            if (initializeContext != null) {
-                initializeContext.shutdown();
-            }
+        for (i = 0; i < 10; i++) {
+            LOG.info("calling hello... for the [" + i + "] time");
+            String hello = bean.hello(names[i % 3]);
+            LOG.debug("Say.:" + hello);
+            LOG.info("hello called.");
         }
     }
     

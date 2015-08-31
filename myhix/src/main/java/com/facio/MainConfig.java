@@ -5,6 +5,7 @@
  */
 package com.facio;
 
+import com.facio.aop.EmulateFilterServletAspect;
 import com.facio.service.HeavyService;
 import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,11 @@ class MainConfig {
     @Bean
     public HeavyService helloWorld() {
         return new HeavyService();
+    }
+    
+    @Bean
+    public EmulateFilterServletAspect filterAspect() {
+        return new EmulateFilterServletAspect();
     }
     
     @Bean

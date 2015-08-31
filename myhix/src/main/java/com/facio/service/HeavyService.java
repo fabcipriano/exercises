@@ -33,7 +33,7 @@ public class HeavyService {
         } catch (InterruptedException ex) {
             LOG.warn("Interrupted", ex);
         }
-        LOG.debug("result=" + name);
+        LOG.debug("result=" + result);
         LOG.info("end hello()");
         return result;
     }
