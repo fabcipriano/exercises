@@ -7,8 +7,8 @@ package com.facio.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheKey;
-import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
+import javax.cache.annotation.CacheKey;
+import javax.cache.annotation.CacheResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class HeavyService {
     Logger LOG = LoggerFactory.getLogger(HeavyService.class);
     
-    @CacheResult
+    @CacheResult (cacheName = "helloCache")
     @HystrixCommand(fallbackMethod = "helloFallBack", 
             commandProperties = {
                 @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
@@ -46,4 +46,8 @@ public class HeavyService {
         LOG.warn("FALLBACK");
         return null;
     }
+    
+//    public String generateNumberByName(int number) {
+//        return name;
+//    }
 }
