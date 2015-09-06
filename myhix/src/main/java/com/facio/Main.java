@@ -6,6 +6,7 @@
 package com.facio;
 
 import com.facio.service.HeavyService;
+import com.facio.service.IDummyComponent;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import java.util.logging.Level;
 import org.slf4j.Logger;
@@ -28,18 +29,16 @@ public class Main {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig.class);
         
         HeavyService bean = ctx.getBean(HeavyService.class);
+        IDummyComponent<String, String> dummy = ctx.getBean(IDummyComponent.class);
         
-        for (i = 0; i < 100; i++) {
-            try {
-                LOG.info("calling hello... for the [" + i + "] time");
-                String hello = bean.hello(names[0]);
-                LOG.debug("Say.:" + hello);
-                LOG.info("hello called.");
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                LOG.warn("interrupeted", ex);
-            }
-        }
+//        for (i = 0; i < 3; i++) {
+//            LOG.info("calling hello... for the [" + i + "] time");
+//            String hello = bean.hello(names[0]);
+//            LOG.debug("Say.:" + hello);
+//            LOG.info("hello called.");
+//        }
+        
+        dummy.getValue("mykey", "myname");
     }
     
 }

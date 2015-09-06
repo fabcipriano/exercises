@@ -6,7 +6,9 @@
 package com.facio;
 
 import com.facio.aop.EmulateFilterServletAspect;
+import com.facio.service.DummyComponent;
 import com.facio.service.HeavyService;
+import com.facio.service.IDummyComponent;
 import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
@@ -34,6 +36,11 @@ class MainConfig {
     @Bean
     public HeavyService helloWorld() {
         return new HeavyService();
+    }
+    
+    @Bean
+    public IDummyComponent<String, String> dummy() {
+        return new DummyComponent();
     }
     
     @Bean
