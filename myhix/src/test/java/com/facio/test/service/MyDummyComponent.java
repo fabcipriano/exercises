@@ -30,5 +30,6 @@ public class MyDummyComponent implements IMyDummyComponent<String, String>{
         LOG.info("begin defaultValue()");
         return "default";
     }
+        
     
 }

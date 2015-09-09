@@ -33,9 +33,6 @@ public class LogginAspect {
         try {
             LOG.debug("begin interpected method=" + joinPoint.getSignature());
             result = joinPoint.proceed();
-        } catch (Exception e) {
-            LOG.debug("Exception intercpeted", e);
-            throw e;
         } finally {
             LOG.debug("end interpected method=" + joinPoint.getSignature());
         }
@@ -43,4 +40,18 @@ public class LogginAspect {
         return result;
     }
     
+    @Around("execution(public * com.facio.test.service.IMyDummyComponent.getValue(..))")
+    public Object methodsGenericsLogging(final ProceedingJoinPoint joinPoint) throws Throwable {
+        LOG.info("begin methodsGenericsLogging()");
+        Object result = null;
+        
+        try {
+            LOG.debug("begin INTERCEPTED method=" + joinPoint.getSignature());
+            result = joinPoint.proceed();
+        } finally {
+            LOG.debug("end INTERCEPTED method=" + joinPoint.getSignature());
+        }
+        
+        return result;
+    }
 }
